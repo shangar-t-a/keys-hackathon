@@ -1,0 +1,12 @@
+{
+    "dictionaryDefinitions": [
+        {
+            "name": "keysHackathonDictionary",
+            "path": "cspell_dictionary.txt",
+            "description": "Keys Hackathon dictionary"
+        }
+    ],
+    "dictionaries": [
+        "keysHackathonDictionary"
+    ]
+}
