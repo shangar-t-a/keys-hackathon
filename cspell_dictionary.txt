@@ -1,4 +1,6 @@
 Arivazhagan
 DALL
 Hackathon
+openai
 Shangar
+telematics
