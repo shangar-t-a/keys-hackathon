@@ -25,6 +25,16 @@ URL: <https://learn.microsoft.com/en-us/collections/gm3rb7kwqzn8?WT.mc_id=clouds
     - [What is Azure Copilot Stack?](#what-is-azure-copilot-stack)
     - [Examine Microsoft Copilot Stack use cases](#examine-microsoft-copilot-stack-use-cases)
     - [Apply best practices to build your future copilot](#apply-best-practices-to-build-your-future-copilot)
+  - [Build natural language solutions with Azure OpenAI Service](#build-natural-language-solutions-with-azure-openai-service)
+    - [Integrate Azure OpenAI into your app](#integrate-azure-openai-into-your-app)
+    - [Use Azure OpenAI REST API](#use-azure-openai-rest-api)
+      - [Chat Completions](#chat-completions)
+      - [Embeddings](#embeddings)
+    - [Use Azure OpenAI SDK](#use-azure-openai-sdk)
+      - [Install Libraries](#install-libraries)
+      - [Configure app to access Azure OpenAI resource](#configure-app-to-access-azure-openai-resource)
+      - [Call Azure OpenAI resource](#call-azure-openai-resource)
+      - [Exercise - Integrate Azure OpenAI into your app](#exercise---integrate-azure-openai-into-your-app)
 
 ## Azure OpenAI Services
 
@@ -106,9 +116,9 @@ Test Models in Azure OpenAI Studio's Playgrounds.
   - Deploy model to web app.
   - Clean up resources.
   
-> [!NOTE]
-> The exercise is done read only due to unavailability of subscription and existing hands-on experience with
-> Open AI models / services.
+  > [!NOTE]
+  > The exercise is done read only due to unavailability of subscription and existing hands-on experience with
+  > Open AI models / services.
 
 ## Explore fundamentals of Azure Cosmos DB
 
@@ -313,3 +323,231 @@ Test Models in Azure OpenAI Studio's Playgrounds.
 - NLP can enable users to interact with product and provide feedback and guidance.
 - Integrating AI can enrich existing features and create new features that solve real problems.
 - Combining AI capabilities (Image + NLU) could unlock even more powerful and creative solution.
+
+## Build natural language solutions with Azure OpenAI Service
+
+- Add AI capabilities to apps with help of Python and C# SDKs and REST APIs.
+- Azure OpenAI has various AI models, each specialized for different tasks.
+
+### Integrate Azure OpenAI into your app
+
+1. Create an Azure OpenAI resource.
+   - Azure Portal -> Azure OpenAI -> Create resource.
+   - Key and endpoint are provided.
+
+2. Choose and deploy a model.
+   - Model Families:
+     - GPT (Generative Pre-trained Transformer).
+     - Code (gpt-3, gpt-35-turbo).
+     - Embeddings
+
+   - Details on models, capability levels and naming conventions: <https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/models>
+
+3. Authentication and specification of deployed model
+   - When deploying model, deployment name is provided. When configuring the app resource endpoint, key and deployment
+   name are used enabling to deploy multiple models with the same resource.
+
+4. Prompt Engineering
+   - Simple input -> Simple output (like a search engine).
+   - Customized input (prompt) -> Customized output (like a chatbot).
+   - Output of the model should be measured and evaluated.
+
+5. Available Endpoints
+   - Completion
+   - ChatCompletion
+     - Example:
+
+     ```json
+     {"role": "system", "content": "You are a helpful assistant, teaching people about AI."},
+     {"role": "user", "content": "Does Azure OpenAI support multiple languages?"},
+     {"role": "assistant", "content": "Yes, Azure OpenAI supports several languages, and can translate between them."},
+     {"role": "user", "content": "Do other Azure AI Services support translation too?"}
+     ```
+
+     - Chat history can be fed as input to the model to provide context.
+     - Can also be used for summarization or entity extraction.
+   - Embeddings
+
+### Use Azure OpenAI REST API
+
+- All REST API require endpoint and key.
+- ENDPOINT_NAME, API_KEY and DEPLOYMENT_NAME.
+
+#### Chat Completions
+
+- `POST` request for the model.
+
+  ```rest
+  curl <https://YOUR_ENDPOINT_NAME.openai.azure.com/openai/deployments/YOUR_DEPLOYMENT_NAME/chat/completions?
+  api-version=2023-03-15-preview \>
+    -H "Content-Type: application/json" \
+    -H "api-key: YOUR_API_KEY" \
+    -d '{"messages":[{"role": "system", "content": "You are a helpful assistant, teaching people about AI."},
+  {"role": "user", "content": "Does Azure OpenAI support multiple languages?"},
+  {"role": "assistant", "content": "Yes, Azure OpenAI supports several languages, and can translate between them."},
+  {"role": "user", "content": "Do other Azure AI Services support translation too?"}]}'
+  ```
+
+  Possible response could be:
+
+  ```json
+  {
+    "id": "chatcmpl-6v7mkQj980V1yBec6ETrKPRqFjNw9",
+    "object": "chat.completion",
+    "created": 1679001781,
+    "model": "gpt-35-turbo",
+    "usage": {
+        "prompt_tokens": 95,
+        "completion_tokens": 84,
+        "total_tokens": 179
+    },
+    "choices": [
+        {
+            "message":
+                {
+                    "role": "assistant",
+                    "content": "Yes, other Azure AI Services also support translation. Azure AI Services offer
+                    translation between multiple languages for text, documents, or custom translation through Azure
+                    AI Services Translator."
+                },
+            "finish_reason": "stop",
+            "index": 0
+        }
+    ]
+  }
+  ```
+
+- REST endpoints also allow for specifying optional parameters like `temperature`, `max_tokens`, and more.
+
+#### Embeddings
+
+- Embeddings API can be used to convert text to numeric vectors (easily consumed by ML models).
+- `POST` request for the embeddings model.
+
+  ```rest
+  curl <https://YOUR_ENDPOINT_NAME.openai.azure.com/openai/deployments/YOUR_DEPLOYMENT_NAME/embeddings?
+  api-version=2022-12-01 \>
+  -H "Content-Type: application/json" \
+  -H "api-key: YOUR_API_KEY" \
+  -d "{\"input\": \"The food was delicious and the waiter...\"}"
+  ```
+
+  Make sure to use embeddings model for embeddings APIs. They typically start with `text-embeddings` or
+  `test-similarity`.
+
+  Possible response could be:
+
+  ```json
+  {
+    "object": "list",
+    "data": [
+      {
+        "object": "embedding",
+        "embedding": [
+          0.0172990688066482523,
+          -0.0291879814639389515,
+          ....
+          0.0134544348834753042,
+        ],
+        "index": 0
+      }
+    ],
+    "model": "text-embedding-ada:002"
+  }
+  ```
+
+### Use Azure OpenAI SDK
+
+- Azure OpenAI SDKs are available for Python and C#. Functions are similar to REST API.
+- Requires: ENDPOINT_NAME, API_KEY and DEPLOYMENT_NAME.
+
+#### Install Libraries
+
+- Python SDK:
+
+  > `pip install azure-openai`
+
+#### Configure app to access Azure OpenAI resource
+
+- Necessary parameters are `endpoint`, `key`, and name of the deployment, which is called `engine`.
+
+```python
+# Add OpenAI library
+from openai import AzureOpenAI
+
+deployment_name = '<YOUR_DEPLOYMENT_NAME>' 
+
+# Initialize the Azure OpenAI client
+client = AzureOpenAI(
+        azure_endpoint = '<YOUR_ENDPOINT_NAME>', 
+        api_key='<YOUR_API_KEY>',  
+        api_version="20xx-xx-xx" #  Target version of the API, such as 2024-02-15-preview
+        )
+```
+
+#### Call Azure OpenAI resource
+
+- Once configured connection to Azure OpenAI, send prompt to the model.
+
+```python
+response = client.chat.completions.create(
+    model=deployment_name,
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "What is Azure OpenAI?"}
+    ]
+)
+generated_text = response.choices[0].message.content
+
+# Print the response
+print("Response: " + generated_text + "\n")
+```
+
+- Response object contains `total_tokens` and `finish_reason`.
+- Optional parameters like `temperature` and `max_tokens` can be passed to the model.
+
+#### Exercise - Integrate Azure OpenAI into your app
+
+1. Provision an Azure OpenAI resource.
+
+   - Sign in to Azure Portal: <https://portal.azure.com/>.
+   - Create a new resource.
+     - Subscription
+     - Resource Group
+     - Region
+     - Name
+     - Pricing tier (Standard S0)
+   - Deploy the resource.
+
+2. Deploy a model.
+
+   - Azure OpenAI Studio -> Deploy a model.
+   - Deployments -> gpt-35-turbo-16k
+     - Model: gpt-35-turbo-16k
+     - Model Version: Auto-update to default
+     - Deployment Name
+     - Advanced Options
+       - Content filter: Default
+       - Deployment type: Standard
+       - Tokens per minute rate limit: 5K*
+       - Enable dynamic quota: Enabled
+
+3. Develop an app in VS Code.
+  
+   - Start Visual Studio Code.
+   - Clone: <https://github.com/MicrosoftLearning/mslearn-openai>
+
+4. Configure the application
+
+   - Update code and verify.
+   - Install openai (SDK), Update .env file with endpoint, key and deployment name.
+
+5. Add code to use Azure OpenAI service.
+
+   - Import SDK.
+   - Initialize client and System messages.
+   - Call chat completions and print response.
+   - Test the app.
+   - Include chat history and system messages.
+   - Experiment with parameters (temperature).
+   - Clean up resources.

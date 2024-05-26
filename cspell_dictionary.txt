@@ -1,5 +1,7 @@
 Arivazhagan
+chatcmpl
 DALL
+dotenv
 Hackathon
 openai
 Shangar
