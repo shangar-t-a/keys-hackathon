@@ -116,9 +116,9 @@ Test Models in Azure OpenAI Studio's Playgrounds.
   - Deploy model to web app.
   - Clean up resources.
   
-  > [!NOTE]
-  > The exercise is done read only due to unavailability of subscription and existing hands-on experience with
-  > Open AI models / services.
+> [!NOTE]
+> The exercise is done read only due to unavailability of subscription and existing hands-on experience with
+> Open AI models / services.
 
 ## Explore fundamentals of Azure Cosmos DB
 
