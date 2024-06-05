@@ -11,6 +11,16 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
       - [Connect to your vCore-based Azure Cosmos DB for MongoDB account using the Azure portal](#connect-to-your-vcore-based-azure-cosmos-db-for-mongodb-account-using-the-azure-portal)
       - [Connect to your vCore-based Azure Cosmos DB for MongoDB account using the Azure portal's Mongo Shell](#connect-to-your-vcore-based-azure-cosmos-db-for-mongodb-account-using-the-azure-portals-mongo-shell)
       - [Clean Up](#clean-up)
+  - [Migrate to vCore-based Azure Cosmos DB for MongoDB](#migrate-to-vcore-based-azure-cosmos-db-for-mongodb)
+    - [Migration assessment and planning](#migration-assessment-and-planning)
+      - [Pre-migration discovery](#pre-migration-discovery)
+      - [Assess the Pre-migration](#assess-the-pre-migration)
+      - [Map the Pre-migration](#map-the-pre-migration)
+      - [Pre-migration logistics plan](#pre-migration-logistics-plan)
+    - [Post-migration](#post-migration)
+  - [Offline migration from MongoDB to vCore-based Azure Cosmos DB for MongoDB using MongoDB native tools](#offline-migration-from-mongodb-to-vcore-based-azure-cosmos-db-for-mongodb-using-mongodb-native-tools)
+    - [Get ready for the migration](#get-ready-for-the-migration)
+    - [Choose your MongoDB native tool](#choose-your-mongodb-native-tool)
 
 ## Implement vCore-based Azure Cosmos DB for MongoDB
 
@@ -155,3 +165,87 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
 2. Manually delete individual resources.
 3. Verify deletion.
 4. Review billing.
+
+## Migrate to vCore-based Azure Cosmos DB for MongoDB
+
+- Migrate from existing MongoDB to Azure Cosmos DB for MongoDB.
+- Utilizing Azure Data Studio.
+- Azure databricks for data migration.
+
+### Migration assessment and planning
+
+- Pre-migration -> Migration -> Post-migration.
+- Plan the pre-migration.
+- Phases:
+  - Pre-migration discovery - Discover the existing MongoDB resources and create data estate spreadsheet.
+  - Pre-migration assessment - Assess the existing MongoDB resources for migration readiness.
+  - Pre-migration mapping - Map existing MongoDB resources to new vCore-based Azure Cosmos DB for MongoDB cluster.
+  - Pre-migration logistics planning - Plan the logistics for the migration end-to-end.
+
+#### Pre-migration discovery
+
+- Discover the existing MongoDB resources. Identify all MongoDB databases, collections and indexes.
+- Create a data estate spreadsheet to help keep track of the MongoDB resources.
+- Data estate spreadsheet includes:
+  - Comprehensive list of existing resources (database or collection).
+  - Help plan the migration end-to-end.
+  - Should be used as tracking document throughout the migration process.
+
+#### Assess the Pre-migration
+
+- Assess or find the MongoDB features that are not supported in Azure Cosmos DB for MongoDB.
+- Know vCore-based Azure Cosmos DB for MongoDB cluster tier offerings.
+- <https://learn.microsoft.com/en-us/azure/cosmos-db/mongodb/vcore/compatibility>
+
+#### Map the Pre-migration
+
+- Capacity planning.
+  - Capacity requirements for the new vCore-based Azure Cosmos DB for MongoDB cluster.
+  - Includes number of vCores, memory, and storage capacity.
+- Plan the vCore-based Azure Cosmos DB for MongoDB data estate.
+  - Map the existing MongoDB resources to the new vCore-based Azure Cosmos DB for MongoDB cluster.
+  - Deciding which resources to migrate to the new cluster.
+
+#### Pre-migration logistics plan
+
+- Who is doing the migration?
+  - assign individuals to migrate the resources and monitor the migration process.
+- What tools are you going to use to do the migration?
+  - native mongoDB tools, Azure Data Studio, Azure Databricks.
+- In what order should we migrate the resources?
+  - Plan & Prioritize the order of migration.
+  - Good practice to start with resources that might take longer to migrate help in uncovering issues early in the
+    migration process.
+- How will you monitor the migration process?
+  - Work with team to define the monitoring process.
+
+### Post-migration
+
+- Cut over your application - Redirect to the new vCore-based Azure Cosmos DB for MongoDB cluster.
+- Plan your post migration configurations - Scaling, high availability, backup and restore.
+
+## Offline migration from MongoDB to vCore-based Azure Cosmos DB for MongoDB using MongoDB native tools
+
+- Suitable where, migration time can be flexible, ensuring smooth transition.
+
+### Get ready for the migration
+
+- Source MongoDB compatible with vCore-based Azure Cosmos DB for MongoDB.
+- MongoDB native tools match your MongoDB version. If there is a mismatch, upgrade native tools.
+- User setup in MongoDB with read and write permissions.
+- Adjust firewall to allow access for vCore-based Azure Cosmos DB for MongoDB. Ensure secure connection between MongoDB
+  instance and vCore-based Azure Cosmos DB for MongoDB.
+
+### Choose your MongoDB native tool
+
+- `mongoexport/mpngoimport` and `mongodump/mongorestore`.
+- `mongoexport/mpngoimport`
+  - Pack data into JSON.
+  - Make sure to add `--ssl` for security.
+  - More suitable for smaller datasets. When selective export or import is needed.
+  - Straight forward but takes longer for larger datasets.
+- `mongodump/mongorestore`
+  - Bulk packing.
+  - Preferred for larger datasets.
+  - Effectively handles bulk data.
+- Note: Keep an eye on the terminal for live feedback.
