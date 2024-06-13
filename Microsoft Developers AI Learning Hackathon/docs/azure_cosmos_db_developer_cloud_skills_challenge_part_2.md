@@ -42,6 +42,20 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
       - [Load data into the MongoDB community edition](#load-data-into-the-mongodb-community-edition)
       - [Migrate to a vCore-based Azure Cosmos DB for MongoDB account using MongoDB native tools (offline)](#migrate-to-a-vcore-based-azure-cosmos-db-for-mongodb-account-using-mongodb-native-tools-offline)
       - [Clean up](#clean-up-1)
+  - [Manage a vCore-based Azure Cosmos DB for MongoDB cluster](#manage-a-vcore-based-azure-cosmos-db-for-mongodb-cluster)
+    - [Scale and configure a vCore-based Azure Cosmos DB for MongoDB cluster](#scale-and-configure-a-vcore-based-azure-cosmos-db-for-mongodb-cluster)
+      - [Determine when to scale the cluster](#determine-when-to-scale-the-cluster)
+      - [Understand cluster tiers](#understand-cluster-tiers)
+      - [Configuring scale and capacity changes](#configuring-scale-and-capacity-changes)
+    - [Explore high availability in a vCore-based Azure Cosmos DB for MongoDB cluster](#explore-high-availability-in-a-vcore-based-azure-cosmos-db-for-mongodb-cluster)
+      - [Understand availability zone support](#understand-availability-zone-support)
+      - [Implement high availability and disaster recovery](#implement-high-availability-and-disaster-recovery)
+      - [Enable high availability](#enable-high-availability)
+    - [Backup and restore a vCore-based Azure Cosmos DB for MongoDB cluster](#backup-and-restore-a-vcore-based-azure-cosmos-db-for-mongodb-cluster)
+      - [Explore the backup process](#explore-the-backup-process)
+      - [Explore the restore process](#explore-the-restore-process)
+    - [Monitor a vCore-based Azure Cosmos DB for MongoDB cluster](#monitor-a-vcore-based-azure-cosmos-db-for-mongodb-cluster)
+      - [Utilize Azure Monitor with Azure Log Analytics or Azure Storage](#utilize-azure-monitor-with-azure-log-analytics-or-azure-storage)
 
 ## Implement vCore-based Azure Cosmos DB for MongoDB
 
@@ -480,3 +494,78 @@ for alternate `Azure Data Migration Service`.
 #### Clean up
 
 Clean up resources in Azure portal.
+
+## Manage a vCore-based Azure Cosmos DB for MongoDB cluster
+
+- Scaling, high availability, backup, restore and diagnostics.
+
+### Scale and configure a vCore-based Azure Cosmos DB for MongoDB cluster
+
+- Proper scaling allows to adapt both increasing and decreasing demands.
+
+#### Determine when to scale the cluster
+
+- Analyze performance requirements.
+- Evaluate Capacity needs.
+
+#### Understand cluster tiers
+
+- Resource allocated such as CPU(vCores) and memory(RAM), tailored for different needs.
+  - Lower tiers like M30, M40 can be suitable for development.
+  - Higher tiers like M50, M60, M80 can be suitable for production.
+
+#### Configuring scale and capacity changes
+
+- Modifications to cluster like tier or capacity can happen without downtime.
+- To make adjustments -> vCore-based Azure Cosmos DB for MongoDB cluster's scale settings -> `Scale` tab ->
+  Select desired tier and capacity -> `Save`.
+  ![Scale vCore-based Azure Cosmos DB for MongoDB cluster](images/scale_vcore_based_cosmosdb_mongodb_cluster.png)
+
+### Explore high availability in a vCore-based Azure Cosmos DB for MongoDB cluster
+
+- Ensures smooth operation even in case of failures, like earthquakes, power outages, etc.
+
+#### Understand availability zone support
+
+- Azure availability zones are atleast 3 unique physical locations within an Azure region.
+  - Zone-redundant: Data is replicated across availability zones to enhance fault tolerance.
+  - Zonal: Data is replicated within a single availability zone to enhance better data locality and performance.
+
+#### Implement high availability and disaster recovery
+
+- High availability enable replicate data shards across availability zones. When primary shard fail, system redirects
+  to standby shard in different availability zone.
+- Disaster recovery across various reasons from natural disasters to technical failures.
+- Enabling high availability: Continuous availability and operational continuity.
+- Backup and restore: Regular backups to ensure data safety.
+
+#### Enable high availability
+
+- High availability can be enabled in `Scale` tab of vCore-based Azure Cosmos DB for MongoDB cluster.
+  ![Enable high availability](images/enable_high_availability.png)
+
+### Backup and restore a vCore-based Azure Cosmos DB for MongoDB cluster
+
+- Offers point-in-time restore capabilities (PITR) to restore data to specific point in time.
+
+#### Explore the backup process
+
+- Automatic and continuous backup process.
+- Advanced Encryption Standard (AES) 256-bit encryption for data security.
+- Backup retained for 35 days for active clusters and 7 days for deleted clusters.
+
+#### Explore the restore process
+
+- Can be initiated via Azure Support Request (Help + Support).
+  ![Restore process](images/restore_process.png)
+
+### Monitor a vCore-based Azure Cosmos DB for MongoDB cluster
+
+- Help maintain health and performance.
+- Azure Monitor combined with either Azure Storage account or Azure log analytics workspace allows to capture and
+  store diagnostic logs.
+
+#### Utilize Azure Monitor with Azure Log Analytics or Azure Storage
+
+- Azure log analytics workspace: real-time and complex analytics.
+  - Detailed analysis and visualization of data.
