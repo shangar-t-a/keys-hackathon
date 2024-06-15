@@ -10,6 +10,7 @@ DALL
 dotenv
 globaldb
 Hackathon
+Kusto
 mongocluster
 mongodump
 mongoexport

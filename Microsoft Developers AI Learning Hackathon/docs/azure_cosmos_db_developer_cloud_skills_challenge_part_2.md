@@ -56,6 +56,17 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
       - [Explore the restore process](#explore-the-restore-process)
     - [Monitor a vCore-based Azure Cosmos DB for MongoDB cluster](#monitor-a-vcore-based-azure-cosmos-db-for-mongodb-cluster)
       - [Utilize Azure Monitor with Azure Log Analytics or Azure Storage](#utilize-azure-monitor-with-azure-log-analytics-or-azure-storage)
+      - [Monitor cluster with Azure Monitor](#monitor-cluster-with-azure-monitor)
+      - [Utilize diagnostic logs](#utilize-diagnostic-logs)
+      - [Explore Kusto monitor queries](#explore-kusto-monitor-queries)
+    - [Exercise: Manage a vCore-based Azure Cosmos DB form MongoDB cluster](#exercise-manage-a-vcore-based-azure-cosmos-db-form-mongodb-cluster)
+      - [Objectives (Manage DB)](#objectives-manage-db)
+      - [Requirements](#requirements)
+      - [Notes](#notes)
+      - [Scale vCore-based Azure Cosmos DB for MongoDB account](#scale-vcore-based-azure-cosmos-db-for-mongodb-account)
+      - [Monitor a vCore-based Azure Cosmos DB for MongoDB account](#monitor-a-vcore-based-azure-cosmos-db-for-mongodb-account)
+      - [Review Logs](#review-logs)
+      - [Alert Rule](#alert-rule)
 
 ## Implement vCore-based Azure Cosmos DB for MongoDB
 
@@ -567,5 +578,71 @@ Clean up resources in Azure portal.
 
 #### Utilize Azure Monitor with Azure Log Analytics or Azure Storage
 
-- Azure log analytics workspace: real-time and complex analytics.
+- **Azure log analytics workspace**: real-time and complex analytics.
   - Detailed analysis and visualization of data.
+  - Advanced querying capabilities.
+- **Azure Storage account**: long-term data retention.
+  - Securely store logs for extended periods, supporting compliance and historical analysis.
+  - Accessing historical data to analyze performance trends and conduct audits.
+
+#### Monitor cluster with Azure Monitor
+
+- Azure monitor's diagnostics logs details operations with DB.
+  - Tracking requests and analyzing performance metrics.
+  - Identifying and resolving operational or performance anomalies.
+
+#### Utilize diagnostic logs
+
+- With either log analytics workspace or storage account, enable configuring diagnostic settings.
+  - Continuous monitor and maintain the performance and health.
+  - Proactively respond to changes in DB behavior.
+
+#### Explore Kusto monitor queries
+
+- Kusto Query Language (KQL) with log analytics workspace. Can be run in cluster's monitoring ***Logs*** page.
+  ![Kusto monitor queries](images/kusto_monitor_service.png)
+
+### Exercise: Manage a vCore-based Azure Cosmos DB form MongoDB cluster
+
+> [!NOTE]
+> The exercise is done read only since unavailability of Azure Subscription.
+
+#### Objectives (Manage DB)
+
+- Scale Azure Cosmos DB for MongoDB account to meet performance needs by adjusting cluster tier, storage capacity and
+  and enabling high availability.
+- Monitor using diagnostic settings to collect and analyze logs and metrics.
+- General alerts to notify when certain conditions are met.
+
+#### Requirements
+
+- vCore-based Azure Cosmos DB for MongoDB account.
+- Azure Storage account.
+- Azure Log Analytics workspace.
+
+#### Notes
+
+- Code resources available in repo: <https://github.com/MicrosoftLearning/mslearn-cosmosdb-mongodb-vcore.git>.
+- `03-manage` folder contains `create-azure-resources.ps1` script to generate .env file.
+
+#### Scale vCore-based Azure Cosmos DB for MongoDB account
+
+- vCore-based Azure Cosmos DB for MongoDB account -> Settings -> `Scale` tab.
+- Adjust `Cluster tier`, `Storage capacity` and `High availability` settings and review the cost implications.
+
+#### Monitor a vCore-based Azure Cosmos DB for MongoDB account
+
+- Log analytics workspace and storage account can be used to monitor.
+- Enabling diagnostic settings to collect logs and metrics.
+- vCore-based Azure Cosmos DB for MongoDB account -> Monitoring Section -> Diagnostic settings -> Add diagnostic
+  setting.
+
+#### Review Logs
+
+- Review logs after running simulation.
+- vCore-based Azure Cosmos DB for MongoDB account -> Monitoring Section -> Logs
+
+#### Alert Rule
+
+- Create alert rule to notify when certain conditions are met.
+- vCore-based Azure Cosmos DB for MongoDB account -> Monitoring Section -> Alerts -> Create alert rule.
