@@ -18,30 +18,30 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
       - [Map the Pre-migration](#map-the-pre-migration)
       - [Pre-migration logistics plan](#pre-migration-logistics-plan)
     - [Post-migration](#post-migration)
-  - [Offline migration from MongoDB to vCore-based Azure Cosmos DB for MongoDB using MongoDB native tools](#offline-migration-from-mongodb-to-vcore-based-azure-cosmos-db-for-mongodb-using-mongodb-native-tools)
-    - [Get ready for the migration (MongoDB native tools)](#get-ready-for-the-migration-mongodb-native-tools)
-    - [Choose your MongoDB native tool](#choose-your-mongodb-native-tool)
-  - [Offline migration from MongoDB to vCore-based Azure Cosmos DB for MongoDB using Azure Data Studio](#offline-migration-from-mongodb-to-vcore-based-azure-cosmos-db-for-mongodb-using-azure-data-studio)
-    - [Get ready for the migration (Azure Data Studio)](#get-ready-for-the-migration-azure-data-studio)
-    - [Perform the migration (Azure Data Studio)](#perform-the-migration-azure-data-studio)
-      - [Connect to MongoDB instance](#connect-to-mongodb-instance)
-      - [Assess the MongoDB instance](#assess-the-mongodb-instance)
-      - [Perform an offline migration of MongoDB databases](#perform-an-offline-migration-of-mongodb-databases)
-  - [Migrate Data from MongoDB to vCore-based Azure Cosmos DB for MongoDB using Azure Databricks](#migrate-data-from-mongodb-to-vcore-based-azure-cosmos-db-for-mongodb-using-azure-databricks)
-    - [Why Azure Databricks?](#why-azure-databricks)
-    - [Pre-requisites](#pre-requisites)
-    - [Perform the migration (Azure Databricks)](#perform-the-migration-azure-databricks)
-    - [Execute the migration](#execute-the-migration)
-    - [Enhance the migration performance](#enhance-the-migration-performance)
-  - [Exercise: Migrate to vCore-based Azure Cosmos DB for MongoDB with MongoDB native tools](#exercise-migrate-to-vcore-based-azure-cosmos-db-for-mongodb-with-mongodb-native-tools)
-    - [Objectives](#objectives)
-    - [Exercise](#exercise)
-      - [Setup](#setup)
-      - [Install and load data into the MongoDB community edition on your local machine](#install-and-load-data-into-the-mongodb-community-edition-on-your-local-machine)
-      - [Install the MongoDB Database Tools](#install-the-mongodb-database-tools)
-      - [Load data into the MongoDB community edition](#load-data-into-the-mongodb-community-edition)
-      - [Migrate to a vCore-based Azure Cosmos DB for MongoDB account using MongoDB native tools (offline)](#migrate-to-a-vcore-based-azure-cosmos-db-for-mongodb-account-using-mongodb-native-tools-offline)
-      - [Clean up](#clean-up-1)
+    - [Offline migration from MongoDB to vCore-based Azure Cosmos DB for MongoDB using MongoDB native tools](#offline-migration-from-mongodb-to-vcore-based-azure-cosmos-db-for-mongodb-using-mongodb-native-tools)
+      - [Get ready for the migration (MongoDB native tools)](#get-ready-for-the-migration-mongodb-native-tools)
+      - [Choose your MongoDB native tool](#choose-your-mongodb-native-tool)
+    - [Offline migration from MongoDB to vCore-based Azure Cosmos DB for MongoDB using Azure Data Studio](#offline-migration-from-mongodb-to-vcore-based-azure-cosmos-db-for-mongodb-using-azure-data-studio)
+      - [Get ready for the migration (Azure Data Studio)](#get-ready-for-the-migration-azure-data-studio)
+      - [Perform the migration (Azure Data Studio)](#perform-the-migration-azure-data-studio)
+        - [Connect to MongoDB instance](#connect-to-mongodb-instance)
+        - [Assess the MongoDB instance](#assess-the-mongodb-instance)
+        - [Perform an offline migration of MongoDB databases](#perform-an-offline-migration-of-mongodb-databases)
+    - [Migrate Data from MongoDB to vCore-based Azure Cosmos DB for MongoDB using Azure Databricks](#migrate-data-from-mongodb-to-vcore-based-azure-cosmos-db-for-mongodb-using-azure-databricks)
+      - [Why Azure Databricks?](#why-azure-databricks)
+      - [Pre-requisites](#pre-requisites)
+      - [Perform the migration (Azure Databricks)](#perform-the-migration-azure-databricks)
+      - [Execute the migration](#execute-the-migration)
+      - [Enhance the migration performance](#enhance-the-migration-performance)
+    - [Exercise: Migrate to vCore-based Azure Cosmos DB for MongoDB with MongoDB native tools](#exercise-migrate-to-vcore-based-azure-cosmos-db-for-mongodb-with-mongodb-native-tools)
+      - [Objectives](#objectives)
+      - [Exercise](#exercise)
+        - [Setup](#setup)
+        - [Install and load data into the MongoDB community edition on your local machine](#install-and-load-data-into-the-mongodb-community-edition-on-your-local-machine)
+        - [Install the MongoDB Database Tools](#install-the-mongodb-database-tools)
+        - [Load data into the MongoDB community edition](#load-data-into-the-mongodb-community-edition)
+        - [Migrate to a vCore-based Azure Cosmos DB for MongoDB account using MongoDB native tools (offline)](#migrate-to-a-vcore-based-azure-cosmos-db-for-mongodb-account-using-mongodb-native-tools-offline)
+        - [Clean up](#clean-up-1)
   - [Manage a vCore-based Azure Cosmos DB for MongoDB cluster](#manage-a-vcore-based-azure-cosmos-db-for-mongodb-cluster)
     - [Scale and configure a vCore-based Azure Cosmos DB for MongoDB cluster](#scale-and-configure-a-vcore-based-azure-cosmos-db-for-mongodb-cluster)
       - [Determine when to scale the cluster](#determine-when-to-scale-the-cluster)
@@ -270,11 +270,11 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
 - Cut over your application - Redirect to the new vCore-based Azure Cosmos DB for MongoDB cluster.
 - Plan your post migration configurations - Scaling, high availability, backup and restore.
 
-## Offline migration from MongoDB to vCore-based Azure Cosmos DB for MongoDB using MongoDB native tools
+### Offline migration from MongoDB to vCore-based Azure Cosmos DB for MongoDB using MongoDB native tools
 
 - Suitable where, migration time can be flexible, ensuring smooth transition.
 
-### Get ready for the migration (MongoDB native tools)
+#### Get ready for the migration (MongoDB native tools)
 
 - Source MongoDB compatible with vCore-based Azure Cosmos DB for MongoDB.
 - MongoDB native tools match your MongoDB version. If there is a mismatch, upgrade native tools.
@@ -282,7 +282,7 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
 - Adjust firewall to allow access for vCore-based Azure Cosmos DB for MongoDB. Ensure secure connection between MongoDB
   instance and vCore-based Azure Cosmos DB for MongoDB.
 
-### Choose your MongoDB native tool
+#### Choose your MongoDB native tool
 
 - `mongoexport/mpngoimport` and `mongodump/mongorestore`.
 - `mongoexport/mpngoimport`
@@ -296,7 +296,7 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
   - Effectively handles bulk data.
 - Note: Keep an eye on the terminal for live feedback.
 
-## Offline migration from MongoDB to vCore-based Azure Cosmos DB for MongoDB using Azure Data Studio
+### Offline migration from MongoDB to vCore-based Azure Cosmos DB for MongoDB using Azure Data Studio
 
 - Migrate using Azure Data Studio migration extension.
 - Pre-requisites:
@@ -305,23 +305,23 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
   - Install latest version of Azure Data Studio on workstation.
   - MongoDB running on version 3.2 or later.
 
-### Get ready for the migration (Azure Data Studio)
+#### Get ready for the migration (Azure Data Studio)
 
 - Navigate Azure Data Studio's extensions and install `Azure Cosmos DB Migration for MongoDB`.
   ![Azure Cosmos DB Migration for MongoDB](images/azure_data_studio_mongodb_migration_extension.png)
 
-### Perform the migration (Azure Data Studio)
+#### Perform the migration (Azure Data Studio)
 
 - Connect to MongoDB instance - via extension.
 - Assess the MongoDB instance - identify potential compatibility issues.
 - Perform an offline migration of MongoDB databases
 
-#### Connect to MongoDB instance
+##### Connect to MongoDB instance
 
 - Azure data studio -> Connections -> Select MongoDB as connection type -> Enter connection details -> Connect.
   ![Connect to MongoDB instance](images/azure_data_studio_connect_to_mongodb_instance.png)
 
-#### Assess the MongoDB instance
+##### Assess the MongoDB instance
 
 - Connection pane -> Manage -> Azure CosmosDB Migration -> Assess and Migrate Database(s).
 - Provide necessary details in wizard -> Start Assessment.
@@ -329,7 +329,7 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
 - Review assessment results. Depending on the size of source server, assessment may take time.
   ![Review assessment results](images/azure_data_studio_review_mongodb_instance_assessment.png)
 
-#### Perform an offline migration of MongoDB databases
+##### Perform an offline migration of MongoDB databases
 
 - Connection pane -> Manage -> Azure CosmosDB Migration.
 - Choose databases and collections to migrate.
@@ -339,18 +339,18 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
 - Once migration is complete, the status will be updated.
 - Verify data in Azure Cosmos DB Account.
 
-## Migrate Data from MongoDB to vCore-based Azure Cosmos DB for MongoDB using Azure Databricks
+### Migrate Data from MongoDB to vCore-based Azure Cosmos DB for MongoDB using Azure Databricks
 
 - Simplifies moving big datasets. Transfer of complex data straightforward.
 - Detailed control over migration pace and data transformations, effectively handling large datasets.
 
-### Why Azure Databricks?
+#### Why Azure Databricks?
 
 - Platform as a Service (PaaS) for Apache Spark.
 - Efficient method for both offline and online data migration.
 - Architecture is specifically designed for extensive datasets.
 
-### Pre-requisites
+#### Pre-requisites
 
 - vCore based Azure Cosmos DB for MongoDB account is active and properly configured.
 - Provision Azure Databricks cluster, selecting Databricks Runtime 7.6 or later optimal for Apache Spark 3.0
@@ -359,7 +359,7 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
 - Add the Maven MongoDB connector for Spark library to cluster. This library enables connections to both native
   MongoDB and Azure Cosmos DB for MongoDB.
 
-### Perform the migration (Azure Databricks)
+#### Perform the migration (Azure Databricks)
 
 - Create either python or Scala notebook. Example python notebook:
   
@@ -385,30 +385,30 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
   "database", targetDb).option("collection", targetCollection).save()
   ```
 
-### Execute the migration
+#### Execute the migration
 
 - Execute notebook, monitor the process for potential rate limiting errors and adjust parameters as needed.
 
-### Enhance the migration performance
+#### Enhance the migration performance
 
 - Depending on the vCore based Azure Cosmos DB for MongoDB cluster tier, tweak settings to optimize performance.
   - **Spark Cluster Configuration**: Optimize number of workers and cores impact computation capabilities.
   - **Batch Size Adjustments**: Tune `maxBatchSize` parameter to help mitigate rate limiting errors. Controls the
     number of documents sent to Azure Cosmos DB for MongoDB in each batch.
 
-## Exercise: Migrate to vCore-based Azure Cosmos DB for MongoDB with MongoDB native tools
+### Exercise: Migrate to vCore-based Azure Cosmos DB for MongoDB with MongoDB native tools
 
 > [!NOTE]
 > The exercise is done read only since unavailability of Azure Subscription.
 
-### Objectives
+#### Objectives
 
 - Migrate data from MongoDB to vCore-based Azure Cosmos DB for MongoDB using MongoDB native tools via `mongodump` and
   `mongorestore`.
 
-### Exercise
+#### Exercise
 
-#### Setup
+##### Setup
 
 1. Clone the GitHub repository - <https://github.com/MicrosoftLearning/mslearn-cosmosdb-mongodb-vcore.git>.
 2. `02-migrate` folder contains `create-azure-resources.ps1` script to generate .env file.
@@ -429,7 +429,7 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
    Invoke-RestMethod -Uri 'http://ipinfo.io/ip' -Method Get
    ```
 
-#### Install and load data into the MongoDB community edition on your local machine
+##### Install and load data into the MongoDB community edition on your local machine
 
 1. Download MongoDB community server edition. <https://www.mongodb.com/try/download/community>
 2. Select package - | Version | 6.0.14 | | Platform | Your current OS/Platform | | Package | Your current install
@@ -439,7 +439,7 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
    - Service name should be `MongoDB`.
    - `Install MongoDB Compass`.
 
-#### Install the MongoDB Database Tools
+##### Install the MongoDB Database Tools
 
 1. Download `MongoDB Command Line Database Tools Download`. <https://www.mongodb.com/try/download/database-tools>
 2. Select package - | Version | 100.9.4 or the latest version | | Platform | Your current OS/Platform | | Package |
@@ -457,7 +457,7 @@ Verify Installation:
    & "C:\Program Files\MongoDB\Tools\100\bin\mongostat"
    ```
 
-#### Load data into the MongoDB community edition
+##### Load data into the MongoDB community edition
 
 1. Open `Terminal` in `MongoDB Tools` folder.
 2. Load sample data into MongoDB community edition.
@@ -468,7 +468,7 @@ Verify Installation:
    & mongoimport --host localhost --port 27017 --db cosmicworks --collection salesOrders --jsonArray --file ../data/cosmicworks/salesOrders.json
    ```
 
-#### Migrate to a vCore-based Azure Cosmos DB for MongoDB account using MongoDB native tools (offline)
+##### Migrate to a vCore-based Azure Cosmos DB for MongoDB account using MongoDB native tools (offline)
 
 `mongodump` and `mongorestore` tools are used to migrate data. In production with large datasets, might need to look
 for alternate `Azure Data Migration Service`.
@@ -502,7 +502,7 @@ for alternate `Azure Data Migration Service`.
 > [!NOTE]
 > `mongoexport` and `mongoimport` can also be used.
 
-#### Clean up
+##### Clean up
 
 Clean up resources in Azure portal.
 
