@@ -67,6 +67,14 @@ URL: <https://learn.microsoft.com/en-us/collections/zkgzhp65nxoy?WT.mc_id=clouds
       - [Monitor a vCore-based Azure Cosmos DB for MongoDB account](#monitor-a-vcore-based-azure-cosmos-db-for-mongodb-account)
       - [Review Logs](#review-logs)
       - [Alert Rule](#alert-rule)
+  - [Build your own AI copilot with vCore-based Azure Cosmos DB for MongoDB and Azure OpenAI](#build-your-own-ai-copilot-with-vcore-based-azure-cosmos-db-for-mongodb-and-azure-openai)
+    - [Explore Azure OpenAI](#explore-azure-openai)
+      - [Security, access control, and ethical AI use](#security-access-control-and-ethical-ai-use)
+      - [Implement practical applications and vector search](#implement-practical-applications-and-vector-search)
+    - [Understand vector databases, Retrieval Augmentation Generation, and embeddings in AI](#understand-vector-databases-retrieval-augmentation-generation-and-embeddings-in-ai)
+    - [Implement Retrieval Augmentation Generation using vector indexes in vCore-based Azure Cosmos DB for MongoDB](#implement-retrieval-augmentation-generation-using-vector-indexes-in-vcore-based-azure-cosmos-db-for-mongodb)
+      - [Integrate Azure OpenAI](#integrate-azure-openai)
+    - [Exercise: Develop an AI copilot using vCore-based Azure Cosmos DB for MongoDB and Azure OpenAI](#exercise-develop-an-ai-copilot-using-vcore-based-azure-cosmos-db-for-mongodb-and-azure-openai)
 
 ## Implement vCore-based Azure Cosmos DB for MongoDB
 
@@ -646,3 +654,81 @@ Clean up resources in Azure portal.
 
 - Create alert rule to notify when certain conditions are met.
 - vCore-based Azure Cosmos DB for MongoDB account -> Monitoring Section -> Alerts -> Create alert rule.
+
+## Build your own AI copilot with vCore-based Azure Cosmos DB for MongoDB and Azure OpenAI
+
+- Building AI copilot with vCore-based Azure Cosmos DB for MongoDB and Azure OpenAI.
+- Integrate vector search for advanced data processing.
+
+### Explore Azure OpenAI
+
+- Advanced models enabling context generation, summarization, image understanding, embeddings and more.
+- Can be accessed from REST APIs, language specific SDKs and Azure OpenAI Studio.
+
+#### Security, access control, and ethical AI use
+
+- Limited access policies to ensure responsible AI use.
+- Virtual network and managed identity for secure access.
+
+#### Implement practical applications and vector search
+
+- Vector search for advanced data processing.
+- RAG (Retrieval Augmented Generation) model for context generation.
+
+### Understand vector databases, Retrieval Augmentation Generation, and embeddings in AI
+
+- Embeddings in AI: Representations of data in vector space.
+- Vector databases: Store and retrieve data based on vector similarity. Multi dimensional data stored in vector form.
+- RAG model: Retrieve and generate data based on context. Customize data based on enterprise needs.
+  ![RAG model](images/rag_model.png)
+
+### Implement Retrieval Augmentation Generation using vector indexes in vCore-based Azure Cosmos DB for MongoDB
+
+- Generate embeddings:
+  - Text fields -> Embeddings (python or node SDK)
+
+  ```python
+  response = AzureOpenAIClient.embeddings.create(
+      input=categoryText,
+      model=embeddings_deployment)
+  ```
+
+- Create vector indexes:
+  - Types of vector indexes:
+    - HNSW: Hierarchical Navigable Small World.
+    - IVF: Inverted File.
+
+- Perform vector search:
+
+#### Integrate Azure OpenAI
+
+Structured Prompt:
+
+- **Original query to be used**
+- **User Defined System Prompt**
+  - **Job Description**: Who the AI is supposed to be. "Helper for a software developer".
+  - **Formatting AI Response**: Directions for how the output should look.
+  - **Limiting AI Interaction Responses**: Limiting the AI's responses to a specific domain.
+  - **Handling Uncertainties**: How to handle when the answer is not known. "I don't know".
+  - **Other Instructions**: Any other instructions for the AI for suggesting resources or providing feedback.
+- **Vector Search Results**: Most relevant results from the vector search.
+
+```python
+response = AzureOpenAICompletionClient.chat.completions.create(
+    model=completion_deployment, messages=structuredPrompt)
+```
+
+### Exercise: Develop an AI copilot using vCore-based Azure Cosmos DB for MongoDB and Azure OpenAI
+
+> [!NOTE]
+> The exercise is done read only since unavailability of Azure Subscription.
+
+- Resources are available in the repo: <https://github.com/MicrosoftLearning/mslearn-cosmosdb-mongodb-vcore.git>
+- `04-vector-search` contains resources for the exercise.
+- Requirements:
+  - Azure Subscription.
+  - vCore-based Azure Cosmos DB for MongoDB account.
+  - Azure OpenAI account including embedding and deployment options.
+- `create-azure-resources.ps1` script to generate .env file and required resources.
+- Load data in Azure Cosmos DB -> Create embeddings -> Create vector indexes -> Perform vector search -> Integrate
+  Azure OpenAI.
