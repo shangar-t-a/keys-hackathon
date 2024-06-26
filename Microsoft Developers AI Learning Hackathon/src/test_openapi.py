@@ -14,7 +14,6 @@ def main() -> None:
     """Test the Azure OpenAI API."""
 
     try:
-
         ENDPOINT = os.getenv("proxy_endpoint")
         API_KEY = os.getenv("api_key")
         MODEL_NAME = "gpt-35-turbo"
@@ -37,7 +36,6 @@ def main() -> None:
         message_list = [{"role": "system", "content": system_message}]
 
         while True:
-
             # Get the user input
             user_input = input("Enter the prompt (or type 'exit' to quit): ")
             if user_input.lower() == "exit":
